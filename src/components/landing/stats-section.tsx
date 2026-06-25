@@ -19,18 +19,22 @@ export default function StatsSection() {
   ];
 
   return (
-    <section className="py-16">
-      <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-6 md:grid-cols-4">
+    <section   
+    style={{
+    backgroundColor: "#ffffff99",
+  }}
+  className="py-10">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 md:grid-cols-4">
         {stats.map((stat) => (
           <div
             key={stat.label}
-            className="rounded-2xl border p-6 text-center"
+            className="text-center"
           >
-            <h3 className="text-3xl font-bold text-primary">
+            <h3 className="text-3xl font-black text-[#031636]">
               {stat.value}
             </h3>
 
-            <p className="mt-2 text-gray-500">
+            <p className="mt-2 text-[#031636]">
               {stat.label}
             </p>
           </div>

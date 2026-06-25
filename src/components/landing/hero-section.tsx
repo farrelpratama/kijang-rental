@@ -1,51 +1,82 @@
+"use client";
+
+import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export default function HeroSection() {
   return (
-    <section className="relative h-[85vh] min-h-[700px] overflow-hidden">
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1503376780353-7e6692767b70')",
-        }}
+    <section className="relative flex min-h-screen items-center overflow-hidden px-10">
+      {/* Background Image */}
+      <Image
+        src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1920&auto=format&fit=crop"
+        alt="Luxury Car"
+        fill
+        priority
+        className="object-cover"
       />
 
-      <div className="absolute inset-0 bg-gradient-to-r from-[#031636]/95 via-[#031636]/70 to-transparent" />
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#031636]/95 via-[#031636]/80 to-[#031636]/30" />
 
-      <div className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-6">
-        <div className="max-w-2xl">
-          <span className="mb-6 inline-block rounded-full bg-[#fea619]/20 px-4 py-2 text-[#fea619] font-medium">
-            Premium Mobility Solution
-          </span>
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pt-24">
+        <div className="grid items-center gap-16 lg:grid-cols-2">
+          {/* Left Content */}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{
+              duration: 0.8,
+            }}
+          >
+            <span className="inline-flex items-center rounded-full bg-[#FEA619]/20 px-5 py-2 text-sm font-semibold text-[#FEA619] backdrop-blur">
+              Premium Car Rental in Yogyakarta
+            </span>
 
-          <h1 className="mb-6 text-6xl font-black leading-tight text-white">
-            Frictionless Path
-            <br />
-            to Mobility.
-          </h1>
+            <h1 className="mt-6 text-5xl font-black leading-tight text-white md:text-5xl">
+              Frictionless
+              <br />
+              Path To
+              <br />
+              Mobility.
+            </h1>
 
-          <p className="mb-8 text-xl text-slate-300">
-            Yogyakarta's premier car rental since
-            2019. Experience professional reliability
-            and seamless travel.
-          </p>
+            <p className="mt-8 max-w-xl text-lg leading-8 text-slate-300">
+              Nikmati pengalaman rental mobil
+              premium dengan armada terbaru,
+              harga transparan, serta pelayanan
+              profesional untuk perjalanan bisnis
+              maupun liburan.
+            </p>
 
-          <div className="flex gap-4">
-            <Link
-              href="/cars"
-              className="rounded-xl bg-[#fea619] px-8 py-4 text-lg font-bold text-white"
-            >
-              Cari Mobil Sekarang
-            </Link>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Link
+                href="/cars"
+                className="rounded-xl bg-[#FEA619] px-8 py-4 font-semibold text-white transition hover:scale-105 hover:bg-[#e69500]"
+              >
+                Booking Sekarang
+              </Link>
 
-            <Link
-              href="/cars"
-              className="rounded-xl border border-white/30 px-8 py-4 text-lg text-white"
-            >
-              Lihat Armada
-            </Link>
-          </div>
+              <Link
+                href="/cars"
+                className="rounded-xl border border-white/30 bg-white/10 px-8 py-4 font-semibold text-white backdrop-blur transition hover:bg-white hover:text-[#031636]"
+              >
+                Lihat Armada
+              </Link>
+            </div>
+          </motion.div>
+
+          {/* Right Content */}
+          <motion.div
+            initial={{ opacity: 0, y: 60 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.2,
+            }}
+            className="flex justify-center lg:justify-end"
+          >
+          </motion.div>
         </div>
       </div>
     </section>
