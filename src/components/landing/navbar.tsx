@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const navigation = [
   {
@@ -14,19 +15,20 @@ const navigation = [
   },
   {
     label: "Layanan",
-    href: "#services",
+    href: "/#services",
   },
   {
     label: "Testimoni",
-    href: "#testimonials",
+    href: "/#testimonials",
   },
   {
     label: "Kontak",
-    href: "#footer",
+    href: "/#footer",
   },
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -55,12 +57,15 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
+  // The navbar should be solid on all pages except the landing page (unless scrolled)
+  const isSolid = isScrolled || pathname !== "/";
+
   return (
     <>
       <header
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? "bg-white/95 shadow-lg backdrop-blur-xl"
+          isSolid
+            ? "bg-white/95 shadow-lg backdrop-blur-xl border-b border-slate-100"
             : "bg-transparent"
         }`}
       >
@@ -68,7 +73,7 @@ export default function Navbar() {
           <Link
             href="/"
             className={`text-2xl font-black tracking-tight transition ${
-              isScrolled
+              isSolid
                 ? "text-[#031636]"
                 : "text-white"
             }`}
@@ -85,7 +90,7 @@ export default function Navbar() {
                 key={item.label}
                 href={item.href}
                 className={`font-medium transition ${
-                  isScrolled
+                  isSolid
                     ? "text-slate-700 hover:text-[#031636]"
                     : "text-white hover:text-[#FEA619]"
                 }`}
@@ -99,7 +104,7 @@ export default function Navbar() {
             <Link
               href="/login"
               className={`rounded-xl border px-5 py-2 font-medium transition ${
-                isScrolled
+                isSolid
                   ? "border-[#031636] text-[#031636] hover:bg-[#031636] hover:text-white"
                   : "border-white text-white hover:bg-white hover:text-[#031636]"
               }`}
@@ -118,7 +123,7 @@ export default function Navbar() {
           <button
             onClick={() => setIsOpen(true)}
             className={`lg:hidden ${
-              isScrolled
+              isSolid
                 ? "text-[#031636]"
                 : "text-white"
             }`}
@@ -138,7 +143,6 @@ export default function Navbar() {
       </header>
 
       {/* Overlay */}
-
       <div
         onClick={() => setIsOpen(false)}
         className={`fixed inset-0 z-40 bg-black/40 transition ${
@@ -149,7 +153,6 @@ export default function Navbar() {
       />
 
       {/* Drawer */}
-
       <aside
         className={`fixed right-0 top-0 z-50 flex h-full w-80 flex-col bg-white shadow-2xl transition-transform duration-300 ${
           isOpen
@@ -164,6 +167,7 @@ export default function Navbar() {
 
           <button
             onClick={() => setIsOpen(false)}
+            className="text-slate-500 hover:text-[#031636] transition font-bold"
           >
             ✕
           </button>
@@ -185,14 +189,16 @@ export default function Navbar() {
         <div className="space-y-3 border-t p-6">
           <Link
             href="/login"
-            className="block rounded-xl border border-[#031636] py-3 text-center font-medium text-[#031636]"
+            onClick={() => setIsOpen(false)}
+            className="block rounded-xl border border-[#031636] py-3 text-center font-medium text-[#031636] hover:bg-[#031636] hover:text-white transition"
           >
             Login
           </Link>
 
           <Link
             href="/cars"
-            className="block rounded-xl bg-[#FEA619] py-3 text-center font-semibold text-white"
+            onClick={() => setIsOpen(false)}
+            className="block rounded-xl bg-[#FEA619] py-3 text-center font-semibold text-white hover:bg-[#e89500] transition"
           >
             Booking Sekarang
           </Link>

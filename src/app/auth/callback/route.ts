@@ -25,7 +25,7 @@ export async function GET(
 
     if (!error) {
       return NextResponse.redirect(
-        `${requestUrl.origin}/auth/confirmed`
+        `${requestUrl.origin}/dashboard`
       );
     }
 

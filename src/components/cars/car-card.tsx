@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-import { Car } from "@/src/types/car";
+import { Car } from "@/src/domain/car";
 
 interface CarCardProps {
   car: Car;

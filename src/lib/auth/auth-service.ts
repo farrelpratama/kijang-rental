@@ -39,3 +39,14 @@ export async function signOut() {
 
   return await supabase.auth.signOut();
 }
+
+export async function signInWithGoogle() {
+  const supabase = createClient();
+
+  return await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: `${window.location.origin}/auth/callback`,
+    },
+  });
+}

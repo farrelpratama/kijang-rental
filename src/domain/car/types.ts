@@ -42,5 +42,9 @@ export interface Car {
 
   thumbnail: string;
 
+  images: string[];
+
+  features: string[];
+
   description: string;
 }
