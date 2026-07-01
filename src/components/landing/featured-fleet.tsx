@@ -3,10 +3,56 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-import { cars } from "@/src/domain/car";
+import { useEffect, useState } from "react";
+import { createClient } from "@/src/lib/supabase/client";
+import { cars, Car } from "@/src/domain/car";
 import CarCard from "@/src/components/cars/car-card";
 
 export default function FeaturedFleet() {
+  const [fleet, setFleet] = useState<Car[]>([]);
+
+  useEffect(() => {
+    async function fetchFeaturedFleet() {
+      try {
+        const supabase = createClient();
+        const { data, error } = await supabase
+          .from("cars")
+          .select("*")
+          .order("created_at", { ascending: false })
+          .limit(4);
+
+        if (!error && data && data.length > 0) {
+          const mapped: Car[] = data.map((item: any) => ({
+            id: item.id,
+            slug: item.slug,
+            brand: item.brand,
+            model: item.model,
+            year: item.year,
+            category: item.category,
+            transmission: item.transmission,
+            fuel: item.fuel,
+            seats: item.seats,
+            price: Number(item.price),
+            rating: Number(item.rating),
+            reviews: item.reviews,
+            available: item.available,
+            thumbnail: item.thumbnail,
+            images: item.images || [],
+            features: item.features || [],
+            description: item.description
+          }));
+          setFleet(mapped);
+        } else {
+          setFleet(cars.slice(0, 4));
+        }
+      } catch (err) {
+        console.error("Error fetching featured fleet:", err);
+        setFleet(cars.slice(0, 4));
+      }
+    }
+    fetchFeaturedFleet();
+  }, []);
+
   return (
     <section
       id="fleet"
@@ -70,7 +116,7 @@ export default function FeaturedFleet() {
         {/* Fleet */}
 
         <div className="mt-20 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
-          {cars.slice(0, 4).map((car, index) => (
+          {fleet.map((car, index) => (
             <motion.div
               key={car.id}
               initial={{

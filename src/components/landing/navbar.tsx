@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { createClient } from "@/src/lib/supabase/client";
+import { signOut } from "@/src/lib/auth/auth-service";
 
 const navigation = [
   {
@@ -29,8 +31,10 @@ const navigation = [
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
     const onScroll = () => {
@@ -45,6 +49,25 @@ export default function Navbar() {
       window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Listen to Supabase auth state
+  useEffect(() => {
+    const supabase = createClient();
+    
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    // Listen for auth state changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -56,6 +79,17 @@ export default function Navbar() {
       document.body.style.overflow = "";
     };
   }, [isOpen]);
+
+  const handleLogout = async () => {
+    try {
+      setIsOpen(false);
+      await signOut();
+      setUser(null);
+      router.refresh();
+    } catch (err) {
+      console.error("Error signing out:", err);
+    }
+  };
 
   // The navbar should be solid on all pages except the landing page (unless scrolled)
   const isSolid = isScrolled || pathname !== "/";
@@ -101,23 +135,41 @@ export default function Navbar() {
           </nav>
 
           <div className="hidden items-center gap-3 lg:flex">
-            <Link
-              href="/login"
-              className={`rounded-xl border px-5 py-2 font-medium transition ${
-                isSolid
-                  ? "border-[#031636] text-[#031636] hover:bg-[#031636] hover:text-white"
-                  : "border-white text-white hover:bg-white hover:text-[#031636]"
-              }`}
-            >
-              Login
-            </Link>
+            {user ? (
+              <Link
+                href="/dashboard"
+                className={`rounded-xl px-5 py-2 font-semibold transition flex items-center gap-2 ${
+                  isSolid
+                    ? "bg-[#031636] text-white hover:bg-[#05204f]"
+                    : "bg-white text-[#031636] hover:bg-slate-100"
+                }`}
+              >
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                Dashboard
+              </Link>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className={`rounded-xl border px-5 py-2 font-medium transition ${
+                    isSolid
+                      ? "border-[#031636] text-[#031636] hover:bg-[#031636] hover:text-white"
+                      : "border-white text-white hover:bg-white hover:text-[#031636]"
+                  }`}
+                >
+                  Login
+                </Link>
 
-            <Link
-              href="/register"
-              className="rounded-xl bg-[#FEA619] px-5 py-2 font-semibold text-white transition hover:scale-105 hover:bg-[#e89500]"
-            >
-              Register
-            </Link>
+                <Link
+                  href="/register"
+                  className="rounded-xl bg-[#FEA619] px-5 py-2 font-semibold text-white transition hover:scale-105 hover:bg-[#e89500]"
+                >
+                  Register
+                </Link>
+              </>
+            )}
           </div>
 
           <button
@@ -187,21 +239,41 @@ export default function Navbar() {
         </nav>
 
         <div className="space-y-3 border-t p-6">
-          <Link
-            href="/login"
-            onClick={() => setIsOpen(false)}
-            className="block rounded-xl border border-[#031636] py-3 text-center font-medium text-[#031636] hover:bg-[#031636] hover:text-white transition"
-          >
-            Login
-          </Link>
+          {user ? (
+            <>
+              <Link
+                href="/dashboard"
+                onClick={() => setIsOpen(false)}
+                className="block rounded-xl bg-[#031636] py-3 text-center font-semibold text-white hover:bg-[#05204f] transition"
+              >
+                Dashboard Saya
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="block w-full rounded-xl border border-red-200 py-3 text-center font-medium text-red-500 hover:bg-red-50 transition"
+              >
+                Keluar
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                onClick={() => setIsOpen(false)}
+                className="block rounded-xl border border-[#031636] py-3 text-center font-medium text-[#031636] hover:bg-[#031636] hover:text-white transition"
+              >
+                Login
+              </Link>
 
-          <Link
-            href="/cars"
-            onClick={() => setIsOpen(false)}
-            className="block rounded-xl bg-[#FEA619] py-3 text-center font-semibold text-white hover:bg-[#e89500] transition"
-          >
-            Booking Sekarang
-          </Link>
+              <Link
+                href="/cars"
+                onClick={() => setIsOpen(false)}
+                className="block rounded-xl bg-[#FEA619] py-3 text-center font-semibold text-white hover:bg-[#e89500] transition"
+              >
+                Booking Sekarang
+              </Link>
+            </>
+          )}
         </div>
       </aside>
     </>

@@ -1,75 +1,60 @@
 "use client";
 
-import FleetFilter from "./fleet-filter";
-import FleetSearch from "./fleet-search";
-
 interface FleetToolbarProps {
   search: string;
-  category: string;
-  transmission: string;
-  seats: string;
-  sort: string;
-
   onSearchChange: (value: string) => void;
-  onCategoryChange: (value: string) => void;
-  onTransmissionChange: (value: string) => void;
-  onSeatsChange: (value: string) => void;
+  sort: string;
   onSortChange: (value: string) => void;
+  count: number;
 }
 
 export default function FleetToolbar({
   search,
-  category,
-  transmission,
-  seats,
-  sort,
   onSearchChange,
-  onCategoryChange,
-  onTransmissionChange,
-  onSeatsChange,
+  sort,
   onSortChange,
+  count,
 }: FleetToolbarProps) {
   return (
-    <div className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-sm">
-      <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-        <FleetSearch
-          value={search}
-          onChange={onSearchChange}
-        />
-
-        <div className="w-full lg:max-w-3xl">
-          <FleetFilter
-            category={category}
-            transmission={transmission}
-            seats={seats}
-            onCategoryChange={onCategoryChange}
-            onTransmissionChange={onTransmissionChange}
-            onSeatsChange={onSeatsChange}
+    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-4 rounded-3xl border border-slate-150 shadow-sm">
+      {/* Search Bar */}
+      <div className="relative w-full sm:w-80">
+        <svg
+          className="absolute left-3.5 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
           />
-        </div>
+        </svg>
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => onSearchChange(e.target.value)}
+          placeholder="Cari mobil..."
+          className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-[#031636] focus:outline-none focus:ring-1 focus:ring-[#031636] transition-all text-sm"
+        />
+      </div>
 
+      {/* Sort & Count */}
+      <div className="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto">
+        <span className="text-xs text-slate-400 font-semibold">
+          Menampilkan <strong className="text-[#031636]">{count}</strong> armada
+        </span>
         <select
           value={sort}
-          onChange={(e) =>
-            onSortChange(e.target.value)
-          }
-          className="h-14 rounded-2xl border border-slate-200 bg-white px-5 outline-none transition focus:border-[#031636]"
+          onChange={(e) => onSortChange(e.target.value)}
+          className="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-[#031636] focus:border-[#031636] focus:outline-none focus:ring-1 focus:ring-[#031636] outline-none cursor-pointer hover:border-slate-300 transition"
         >
-          <option value="latest">
-            Terbaru
-          </option>
-
-          <option value="price-low">
-            Harga Terendah
-          </option>
-
-          <option value="price-high">
-            Harga Tertinggi
-          </option>
-
-          <option value="rating">
-            Rating Tertinggi
-          </option>
+          <option value="latest">Terbaru</option>
+          <option value="price-low">Tarif: Terendah</option>
+          <option value="price-high">Tarif: Tertinggi</option>
+          <option value="rating">Rating Tertinggi</option>
         </select>
       </div>
     </div>
