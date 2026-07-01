@@ -13,6 +13,8 @@ interface Booking {
   carBrand: string;
   carModel: string;
   carPrice: number;
+  customerId: string;
+  customerCreatedAt: string;
 }
 
 interface BookingCardProps {
@@ -20,6 +22,7 @@ interface BookingCardProps {
   formatIDR: (num: number) => string;
   updatingId: string | null;
   onUpdateStatus: (id: string, newStatus: Booking["status"]) => Promise<void>;
+  onViewCustomer: (customer: { id: string; name: string; email: string; phone: string | null; createdAt: string }) => void;
 }
 
 export default function BookingCard({
@@ -27,6 +30,7 @@ export default function BookingCard({
   formatIDR,
   updatingId,
   onUpdateStatus,
+  onViewCustomer,
 }: BookingCardProps) {
   const days = Math.max(
     Math.ceil((new Date(booking.endDate).getTime() - new Date(booking.startDate).getTime()) / (1000 * 365 * 24)) || 1,
@@ -49,12 +53,20 @@ export default function BookingCard({
               : booking.status === "ongoing" 
               ? "bg-blue-50 text-blue-700 border border-blue-150"
               : booking.status === "pending" 
-              ? "bg-amber-50 text-amber-700 border border-amber-150" 
+              ? "bg-slate-50 text-slate-700 border border-slate-200" 
               : booking.status === "confirmed" 
-              ? "bg-indigo-50 text-indigo-700 border border-indigo-150" 
+              ? "bg-emerald-50 text-emerald-700 border border-emerald-150" 
               : "bg-rose-50 text-rose-700 border border-rose-150"
           }`}>
-            {booking.status}
+            {booking.status === "pending"
+              ? "Belum Bayar"
+              : booking.status === "confirmed"
+              ? "Pembayaran Lunas"
+              : booking.status === "ongoing"
+              ? "Aktif"
+              : booking.status === "completed"
+              ? "Selesai"
+              : "Dibatalkan"}
           </span>
           <span className="text-xs text-slate-400">
             Dibuat pada: {new Date(booking.createdAt).toLocaleDateString("id-ID", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
@@ -65,7 +77,22 @@ export default function BookingCard({
           {/* Customer */}
           <div>
             <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Pelanggan</p>
-            <p className="font-bold text-[#031636] mt-0.5">{booking.customerName}</p>
+            <div className="flex items-center gap-2 mt-0.5">
+              <p className="font-bold text-[#031636]">{booking.customerName}</p>
+              <button
+                type="button"
+                onClick={() => onViewCustomer({
+                  id: booking.customerId,
+                  name: booking.customerName,
+                  email: booking.customerEmail,
+                  phone: booking.customerPhone,
+                  createdAt: booking.customerCreatedAt
+                })}
+                className="px-2 py-0.5 text-[9px] font-bold text-white bg-[#031636] hover:bg-[#05204f] rounded-lg transition"
+              >
+                Detail
+              </button>
+            </div>
             <p className="text-xs text-slate-400">{booking.customerEmail} • {booking.customerPhone}</p>
           </div>
 

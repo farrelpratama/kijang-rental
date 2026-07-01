@@ -12,7 +12,7 @@ export default function DocumentPreviewModal({
   if (!url) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 animate-fade-in">
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/75 p-4 animate-fade-in">
       <div className="relative max-w-3xl w-full max-h-[85vh] bg-white rounded-2xl overflow-hidden shadow-2xl flex flex-col">
         <div className="p-4 bg-slate-50 border-b border-slate-100 flex justify-between items-center">
           <span className="font-bold text-sm text-[#031636]">Pratinjau Dokumen</span>

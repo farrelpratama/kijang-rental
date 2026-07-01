@@ -255,21 +255,25 @@ export default function CarFormModal({
           <div className="space-y-2">
             <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">Foto Utama *</label>
             
-            {thumbnail && (
-              <div className="relative w-32 aspect-[3/2] bg-slate-100 rounded-xl overflow-hidden border border-slate-200">
-                <img src={thumbnail} alt="Preview" className="w-full h-full object-cover" />
-                <button
-                  type="button"
-                  onClick={() => setThumbnail("")}
-                  className="absolute top-1 right-1 bg-black/50 text-white rounded-full p-1 hover:bg-black/80 transition text-[10px] w-5 h-5 flex items-center justify-center font-bold"
-                >
-                  ✕
-                </button>
-              </div>
-            )}
+            <div className="flex flex-wrap items-center gap-4">
+              {thumbnail ? (
+                <div className="relative w-32 aspect-[3/2] bg-slate-100 rounded-xl overflow-hidden border border-slate-200 flex-shrink-0">
+                  <img src={thumbnail} alt="Preview" className="w-full h-full object-cover" />
+                  <button
+                    type="button"
+                    onClick={() => setThumbnail("")}
+                    className="absolute top-1 right-1 bg-black/50 text-white rounded-full p-1 hover:bg-black/80 transition text-[10px] w-5 h-5 flex items-center justify-center font-bold"
+                  >
+                    ✕
+                  </button>
+                </div>
+              ) : (
+                <div className="w-32 aspect-[3/2] bg-slate-50 rounded-xl border border-dashed border-slate-200 flex items-center justify-center text-xs text-slate-400 font-semibold flex-shrink-0">
+                  No Image
+                </div>
+              )}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
+              <div className="flex-grow">
                 <input
                   type="file"
                   accept="image/*"
@@ -280,7 +284,7 @@ export default function CarFormModal({
                 />
                 <label
                   htmlFor="car-photo-upload"
-                  className={`flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-dashed border-slate-300 text-sm font-semibold cursor-pointer hover:bg-slate-50 transition text-slate-600 ${
+                  className={`flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-dashed border-slate-300 text-sm font-semibold cursor-pointer hover:bg-slate-50 transition text-slate-600 w-full md:w-fit ${
                     uploading ? "opacity-50 pointer-events-none" : ""
                   }`}
                 >
@@ -298,17 +302,7 @@ export default function CarFormModal({
                     </>
                   )}
                 </label>
-              </div>
-
-              <div>
-                <input
-                  type="text"
-                  required
-                  value={thumbnail}
-                  onChange={(e) => setThumbnail(e.target.value)}
-                  placeholder="Atau masukkan URL foto langsung..."
-                  className="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-1 focus:ring-amber-500 text-sm h-full"
-                />
+                <p className="text-[10px] text-slate-400 mt-2 font-medium">Format gambar (PNG, JPG, JPEG) maks 5MB.</p>
               </div>
             </div>
           </div>

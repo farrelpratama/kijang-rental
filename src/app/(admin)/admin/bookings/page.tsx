@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { createClient } from "@/src/lib/supabase/client";
 import BookingFilters from "@/src/components/admin/booking-filters";
 import BookingCard from "@/src/components/admin/booking-card";
+import CustomerDetailModal from "@/src/components/admin/customer-detail-modal";
 
 interface Booking {
   id: string;
@@ -18,10 +19,13 @@ interface Booking {
   carBrand: string;
   carModel: string;
   carPrice: number;
+  customerId: string;
+  customerCreatedAt: string;
 }
 
 export default function AdminBookingsPage() {
   const [bookings, setBookings] = useState<Booking[]>([]);
+  const [selectedCustomer, setSelectedCustomer] = useState<{ id: string; name: string; email: string; phone: string | null; createdAt: string } | null>(null);
   const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -43,15 +47,18 @@ export default function AdminBookingsPage() {
         .from("bookings")
         .select(`
           id,
+          user_id,
           start_date,
           end_date,
           total_price,
           status,
           created_at,
           user:users (
+            id,
             name,
             email,
-            phone
+            phone,
+            created_at
           ),
           car:cars (
             brand,
@@ -77,6 +84,8 @@ export default function AdminBookingsPage() {
           carBrand: b.car?.brand || "Merek",
           carModel: b.car?.model || "Model",
           carPrice: Number(b.car?.price || 0),
+          customerId: b.user?.id || b.user_id,
+          customerCreatedAt: b.user?.created_at || b.created_at,
         }));
         setBookings(mapped);
       }
@@ -157,10 +166,17 @@ export default function AdminBookingsPage() {
               formatIDR={formatIDR}
               updatingId={updatingId}
               onUpdateStatus={updateBookingStatus}
+              onViewCustomer={(cust) => setSelectedCustomer(cust)}
             />
           ))}
         </div>
       )}
+
+      {/* Customer Detail Information Modal */}
+      <CustomerDetailModal
+        customer={selectedCustomer}
+        onClose={() => setSelectedCustomer(null)}
+      />
     </div>
   );
 }

@@ -38,13 +38,13 @@ export default function BookingCard({
       <div
         className={`absolute left-0 top-0 bottom-0 w-1.5 ${
           booking.status === "ongoing"
-            ? "bg-emerald-500"
-            : booking.status === "confirmed"
             ? "bg-indigo-500"
+            : booking.status === "confirmed"
+            ? "bg-amber-500"
             : booking.status === "pending"
             ? "bg-amber-500"
             : booking.status === "completed"
-            ? "bg-blue-500"
+            ? "bg-emerald-500"
             : "bg-red-500"
         }`}
       />
@@ -67,9 +67,9 @@ export default function BookingCard({
               <span
                 className={`rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-wider ${
                   booking.status === "ongoing"
-                    ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
-                    : booking.status === "confirmed"
                     ? "bg-indigo-50 text-indigo-700 border border-indigo-200"
+                    : booking.status === "confirmed"
+                    ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
                     : booking.status === "pending"
                     ? "bg-amber-50 text-amber-700 border-amber-200"
                     : booking.status === "completed"
@@ -78,9 +78,9 @@ export default function BookingCard({
                 }`}
               >
                 {booking.status === "ongoing"
-                  ? "Aktif"
+                  ? "Terkonfirmasi"
                   : booking.status === "confirmed"
-                  ? "Dikonfirmasi"
+                  ? "Pembayaran Lunas"
                   : booking.status === "pending"
                   ? "Pending"
                   : booking.status === "completed"

@@ -49,18 +49,43 @@ export default function Navbar() {
       window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const [role, setRole] = useState<string | null>(null);
+
   // Listen to Supabase auth state
   useEffect(() => {
     const supabase = createClient();
+
+    async function fetchUserRole(userId: string) {
+      try {
+        const { data } = await supabase
+          .from("users")
+          .select("role")
+          .eq("id", userId)
+          .single();
+        setRole(data?.role ?? "customer");
+      } catch (err) {
+        console.error("Error fetching user role:", err);
+      }
+    }
     
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
+      if (session?.user) {
+        fetchUserRole(session.user.id);
+      } else {
+        setRole(null);
+      }
     });
 
     // Listen for auth state changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
+      if (session?.user) {
+        fetchUserRole(session.user.id);
+      } else {
+        setRole(null);
+      }
     });
 
     return () => {
@@ -135,6 +160,18 @@ export default function Navbar() {
           </nav>
 
           <div className="hidden items-center gap-3 lg:flex">
+            {user && role === "admin" && (
+              <Link
+                href="/admin"
+                className="rounded-xl bg-[#FEA619] hover:bg-[#e89500] text-white font-bold text-sm px-5 py-2 flex items-center gap-1.5 shadow transition hover:scale-105"
+              >
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                </svg>
+                Area Admin
+              </Link>
+            )}
+
             {user ? (
               <Link
                 href="/dashboard"
@@ -223,7 +260,7 @@ export default function Navbar() {
           >
             ✕
           </button>
-        </div>
+        </div>``;;;;;;
 
         <nav className="flex flex-1 flex-col gap-6 p-8">
           {navigation.map((item) => (
@@ -241,6 +278,15 @@ export default function Navbar() {
         <div className="space-y-3 border-t p-6">
           {user ? (
             <>
+              {role === "admin" && (
+                <Link
+                  href="/admin"
+                  onClick={() => setIsOpen(false)}
+                  className="block rounded-xl bg-[#FEA619] py-3 text-center font-semibold text-white hover:bg-[#e89500] transition mb-2"
+                >
+                  Area Admin
+                </Link>
+              )}
               <Link
                 href="/dashboard"
                 onClick={() => setIsOpen(false)}

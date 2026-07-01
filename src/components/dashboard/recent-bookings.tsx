@@ -70,9 +70,9 @@ export default function RecentBookings({
               <span
                 className={`rounded-full px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-wider border ${
                   booking.status === "ongoing"
-                    ? "bg-emerald-50 text-emerald-700 border-emerald-200"
-                    : booking.status === "confirmed"
                     ? "bg-indigo-50 text-indigo-700 border-indigo-200"
+                    : booking.status === "confirmed"
+                    ? "bg-emerald-50 text-emerald-700 border-emerald-200"
                     : booking.status === "pending"
                     ? "bg-amber-50 text-amber-700 border-amber-200"
                     : booking.status === "completed"
@@ -81,9 +81,9 @@ export default function RecentBookings({
                 }`}
               >
                 {booking.status === "ongoing"
-                  ? "Aktif"
+                  ? "Terkonfirmasi"
                   : booking.status === "confirmed"
-                  ? "Dikonfirmasi"
+                  ? "Pembayaran Lunas"
                   : booking.status === "pending"
                   ? "Pending"
                   : booking.status === "completed"

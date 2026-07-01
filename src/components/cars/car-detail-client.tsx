@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Car } from "@/src/domain/car";
 import { createClient } from "@/src/lib/supabase/client";
+import { useToast } from "@/src/providers/toast-provider";
 
 interface CarDetailClientProps {
   car: Car;
@@ -14,6 +15,7 @@ interface CarDetailClientProps {
 
 export default function CarDetailClient({ car }: CarDetailClientProps) {
   const router = useRouter();
+  const { showToast } = useToast();
   const [submitting, setSubmitting] = useState(false);
   // Gallery state
   const [activeImage, setActiveImage] = useState(car.images[0] || car.thumbnail);
@@ -31,6 +33,8 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
 
   // Modal state
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [createdBookingId, setCreatedBookingId] = useState<string | null>(null);
+  const [paying, setPaying] = useState(false);
 
   // Calculate rental duration and prices
   const {
@@ -129,7 +133,7 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
       ) {
         setDocumentFile(file);
       } else {
-        alert("Hanya menerima file JPG/PNG maksimal 5MB.");
+        showToast("Hanya menerima file JPG/PNG maksimal 5MB.", "error");
       }
     }
   };
@@ -144,7 +148,7 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
       ) {
         setDocumentFile(file);
       } else {
-        alert("Hanya menerima file JPG/PNG maksimal 5MB.");
+        showToast("Hanya menerima file JPG/PNG maksimal 5MB.", "error");
       }
     }
   };
@@ -152,15 +156,15 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!isValidDateRange) {
-      alert("Silakan pilih tanggal sewa yang valid terlebih dahulu.");
+      showToast("Silakan pilih tanggal sewa yang valid terlebih dahulu.", "error");
       return;
     }
     if (!fullName || !phone) {
-      alert("Silakan isi nama lengkap dan nomor WhatsApp.");
+      showToast("Silakan isi nama lengkap dan nomor WhatsApp.", "error");
       return;
     }
     if (!documentFile) {
-      alert("Silakan unggah dokumen identitas (KTP/SIM) Anda.");
+      showToast("Silakan unggah dokumen identitas (KTP/SIM) Anda.", "error");
       return;
     }
 
@@ -171,7 +175,7 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
       const { data: { user } } = await supabase.auth.getUser();
 
       if (!user) {
-        alert("Anda harus login terlebih dahulu untuk membuat sewa.");
+        showToast("Anda harus login terlebih dahulu untuk membuat sewa.", "info");
         router.push("/login");
         return;
       }
@@ -191,9 +195,11 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
         .single();
 
       if (bookingError) {
-        alert("Gagal membuat booking: " + bookingError.message);
+        showToast("Gagal membuat booking: " + bookingError.message, "error");
         return;
       }
+
+      setCreatedBookingId(booking.id);
 
       // 2. Upload document (KTP)
       const fileExt = documentFile.name.split(".").pop();
@@ -230,9 +236,82 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
 
     } catch (err) {
       console.error("Error creating booking:", err);
-      alert("Terjadi kesalahan saat memproses booking.");
+      showToast("Terjadi kesalahan saat memproses booking.", "error");
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  const handlePayNow = async () => {
+    if (!createdBookingId) return;
+
+    try {
+      setPaying(true);
+      const res = await fetch("/api/payment/token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ bookingId: createdBookingId }),
+      });
+
+      const data = await res.json();
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      if (typeof window !== "undefined" && (window as any).snap) {
+        (window as any).snap.pay(data.token, {
+          onSuccess: async (result: any) => {
+            console.log("payment success:", result);
+            showToast("Pembayaran berhasil!", "success");
+            try {
+              await fetch("/api/payment/verify", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ bookingId: createdBookingId, orderId: result.order_id }),
+              });
+            } catch (syncErr) {
+              console.error("Failed to sync payment status:", syncErr);
+            }
+            setShowSuccessModal(false);
+            router.push("/dashboard");
+          },
+          onPending: async (result: any) => {
+            console.log("payment pending:", result);
+            showToast("Pembayaran sedang diproses, silakan ikuti instruksi pembayaran.", "info");
+            try {
+              await fetch("/api/payment/verify", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ bookingId: createdBookingId, orderId: result.order_id }),
+              });
+            } catch (syncErr) {
+              console.error("Failed to sync payment status:", syncErr);
+            }
+            setShowSuccessModal(false);
+            router.push("/dashboard/payment");
+          },
+          onError: (result: any) => {
+            console.error("payment error:", result);
+            showToast("Pembayaran gagal. Silakan coba kembali.", "error");
+          },
+          onClose: () => {
+            console.log("payment modal closed");
+            setShowSuccessModal(false);
+            router.push("/dashboard/payment");
+          },
+        });
+      } else {
+        showToast("Sistem pembayaran Midtrans sedang bersiap. Silakan coba lagi.", "info");
+        router.push("/dashboard/payment");
+      }
+    } catch (err: any) {
+      console.error("Error initiating payment:", err);
+      showToast("Gagal memproses pembayaran: " + err.message, "error");
+      router.push("/dashboard/payment");
+    } finally {
+      setPaying(false);
     }
   };
 
@@ -770,13 +849,18 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
                     Ke Dashboard
                   </button>
                   <button
-                    onClick={() => {
-                      setShowSuccessModal(false);
-                      router.push("/dashboard/payment");
-                    }}
-                    className="w-full py-4 bg-[#031636] text-white font-bold rounded-2xl transition hover:bg-[#05204f]"
+                    disabled={paying}
+                    onClick={handlePayNow}
+                    className="w-full py-4 bg-[#031636] text-white font-bold rounded-2xl transition hover:bg-[#05204f] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
-                    Bayar Sekarang
+                    {paying ? (
+                      <>
+                        <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
+                        Memproses...
+                      </>
+                    ) : (
+                      "Bayar Sekarang"
+                    )}
                   </button>
                 </div>
               </div>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { createClient } from "@/src/lib/supabase/client";
+import { useToast } from "@/src/providers/toast-provider";
 import PaymentStats from "@/src/components/dashboard/payment-stats";
 import TransactionTable from "@/src/components/dashboard/transaction-table";
 
@@ -14,9 +15,11 @@ interface Transaction {
   amount: number;
   status: string;
   statusBg: string;
+  bookingStatus: string;
 }
 
 export default function PaymentHistoryPage() {
+  const { showToast } = useToast();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [outstandingBalance, setOutstandingBalance] = useState(0);
   const [totalSpent, setTotalSpent] = useState(0);
@@ -106,6 +109,7 @@ export default function PaymentHistoryPage() {
             amount: Number(b.total_price),
             status,
             statusBg,
+            bookingStatus: b.status,
           };
         });
 
@@ -120,8 +124,73 @@ export default function PaymentHistoryPage() {
     fetchPayments();
   }, []);
 
-  const handlePayNow = (ref: string, amount: number) => {
-    alert(`Membuka Midtrans Snap Payment untuk booking #${ref} senilai ${formatIDR(amount)}...`);
+  const [paying, setPaying] = useState(false);
+
+  const handlePayNow = async (bookingId: string) => {
+    if (!bookingId) return;
+
+    try {
+      setPaying(true);
+      const res = await fetch("/api/payment/token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ bookingId }),
+      });
+
+      const data = await res.json();
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      if (typeof window !== "undefined" && (window as any).snap) {
+        (window as any).snap.pay(data.token, {
+          onSuccess: async (result: any) => {
+            console.log("payment success:", result);
+            showToast("Pembayaran berhasil!", "success");
+            try {
+              await fetch("/api/payment/verify", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ bookingId, orderId: result.order_id }),
+              });
+            } catch (syncErr) {
+              console.error("Failed to sync payment status:", syncErr);
+            }
+            window.location.reload();
+          },
+          onPending: async (result: any) => {
+            console.log("payment pending:", result);
+            showToast("Pembayaran sedang diproses, silakan ikuti instruksi pembayaran.", "info");
+            try {
+              await fetch("/api/payment/verify", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ bookingId, orderId: result.order_id }),
+              });
+            } catch (syncErr) {
+              console.error("Failed to sync payment status:", syncErr);
+            }
+            window.location.reload();
+          },
+          onError: (result: any) => {
+            console.error("payment error:", result);
+            showToast("Pembayaran gagal. Silakan coba kembali.", "error");
+          },
+          onClose: () => {
+            console.log("payment modal closed");
+          },
+        });
+      } else {
+        showToast("Sistem pembayaran Midtrans sedang bersiap. Silakan coba lagi.", "info");
+      }
+    } catch (err: any) {
+      console.error("Error initiating payment:", err);
+      showToast("Gagal memproses pembayaran: " + err.message, "error");
+    } finally {
+      setPaying(false);
+    }
   };
 
   if (loading) {
@@ -132,7 +201,7 @@ export default function PaymentHistoryPage() {
     );
   }
 
-  const pendingRef = transactions.find((t) => t.status === "Pending")?.bookingRef || "TOTAL";
+  const pendingId = transactions.find((t) => t.status === "Pending")?.id || "";
 
   return (
     <div className="space-y-8">
@@ -149,13 +218,14 @@ export default function PaymentHistoryPage() {
         outstandingBalance={outstandingBalance}
         totalSpent={totalSpent}
         formatIDR={formatIDR}
-        onPayNow={() => handlePayNow(pendingRef, outstandingBalance)}
+        onPayNow={() => handlePayNow(pendingId)}
       />
 
       {/* Transaction Table Component */}
       <TransactionTable
         transactions={transactions}
         formatIDR={formatIDR}
+        onPayNow={handlePayNow}
       />
     </div>
   );

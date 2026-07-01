@@ -55,6 +55,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [userName, setUserName] = useState("Pelanggan");
   const [initials, setInitials] = useState("US");
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     async function fetchUserData() {
@@ -65,21 +66,24 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
         const { data: profile } = await supabase
           .from("users")
-          .select("name")
+          .select("name, role")
           .eq("id", user.id)
           .single();
 
-        if (profile && profile.name) {
-          setUserName(profile.name);
-          const nameParts = profile.name.trim().split(/\s+/);
-          const init = nameParts.length > 1 
-            ? (nameParts[0][0] + nameParts[1][0]).toUpperCase()
-            : nameParts[0].substring(0, 2).toUpperCase();
-          setInitials(init);
-        } else if (user.email) {
-          const emailName = user.email.split("@")[0];
-          setUserName(emailName);
-          setInitials(emailName.substring(0, 2).toUpperCase());
+        if (profile) {
+          setIsAdmin(profile.role === "admin");
+          if (profile.name) {
+            setUserName(profile.name);
+            const nameParts = profile.name.trim().split(/\s+/);
+            const init = nameParts.length > 1 
+              ? (nameParts[0][0] + nameParts[1][0]).toUpperCase()
+              : nameParts[0].substring(0, 2).toUpperCase();
+            setInitials(init);
+          } else if (user.email) {
+            const emailName = user.email.split("@")[0];
+            setUserName(emailName);
+            setInitials(emailName.substring(0, 2).toUpperCase());
+          }
         }
       } catch (err) {
         console.error("Error fetching user data in layout:", err);
@@ -203,13 +207,24 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               <span className="absolute top-1.5 right-1.5 h-2.5 w-2.5 bg-red-500 rounded-full ring-2 ring-white"></span>
             </button>
 
-            {/* Book Now Button */}
-            <Link
-              href="/cars"
-              className="hidden md:flex items-center gap-2 bg-[#031636] text-white font-bold text-xs px-5 py-2.5 rounded-xl hover:bg-[#05204f] transition shadow-md"
-            >
-              Cari Mobil
-            </Link>
+             {/* Admin Mode Switch Button */}
+             {isAdmin && (
+               <Link
+                 href="/admin"
+                 className="flex items-center gap-1.5 bg-amber-50 text-amber-700 hover:bg-amber-100 font-bold text-xs px-4 py-2.5 rounded-xl border border-amber-250 transition"
+               >
+                 <span className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                 Mode Admin
+               </Link>
+             )}
+
+             {/* Book Now Button */}
+             <Link
+               href="/cars"
+               className="hidden md:flex items-center gap-2 bg-[#031636] text-white font-bold text-xs px-5 py-2.5 rounded-xl hover:bg-[#05204f] transition shadow-md"
+             >
+               Cari Mobil
+             </Link>
 
             {/* Mobile User Avatar */}
             <div className="h-9 w-9 overflow-hidden rounded-full bg-slate-200 border border-slate-100 lg:hidden flex items-center justify-center font-bold text-[#031636] text-xs">

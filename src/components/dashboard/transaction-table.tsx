@@ -9,16 +9,19 @@ interface Transaction {
   amount: number;
   status: string;
   statusBg: string;
+  bookingStatus: string;
 }
 
 interface TransactionTableProps {
   transactions: Transaction[];
   formatIDR: (num: number) => string;
+  onPayNow?: (bookingId: string) => void;
 }
 
 export default function TransactionTable({
   transactions,
   formatIDR,
+  onPayNow,
 }: TransactionTableProps) {
   if (transactions.length === 0) {
     return (
@@ -58,9 +61,19 @@ export default function TransactionTable({
                   {formatIDR(transaction.amount)}
                 </td>
                 <td className="px-6 py-4">
-                  <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${transaction.statusBg}`}>
-                    {transaction.status}
-                  </span>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${transaction.statusBg}`}>
+                      {transaction.status}
+                    </span>
+                    {transaction.status === "Pending" && onPayNow && (
+                      <button
+                        onClick={() => onPayNow(transaction.id)}
+                        className="px-3 py-1 text-xs font-bold text-white bg-[#031636] hover:bg-[#05204f] rounded-lg transition"
+                      >
+                        Bayar
+                      </button>
+                    )}
+                  </div>
                 </td>
               </tr>
             ))}
