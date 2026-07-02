@@ -115,13 +115,13 @@ export default function BookingCard({
       </div>
 
       {/* Total and CTA Actions */}
-      <div className="flex flex-row lg:flex-col items-center lg:items-end justify-between lg:justify-center gap-4 border-t lg:border-t-0 pt-4 lg:pt-0 border-slate-50 lg:pl-6">
+      <div className="flex flex-col sm:flex-row lg:flex-col items-start sm:items-center lg:items-end justify-between lg:justify-center gap-4 border-t lg:border-t-0 pt-4 lg:pt-0 border-slate-50 lg:pl-6 w-full lg:w-auto">
         <div className="text-left lg:text-right">
           <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Total Biaya</p>
           <p className="text-xl font-extrabold text-[#031636] mt-0.5">{formatIDR(booking.totalPrice)}</p>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 w-full sm:w-auto justify-end">
           {booking.status === "pending" && (
             <>
               <button

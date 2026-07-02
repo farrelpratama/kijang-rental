@@ -174,7 +174,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       </aside>
 
       {/* Main Content Area */}
-      <div className="flex-1 lg:pl-64 flex flex-col min-h-screen">
+      <div className="flex-1 lg:pl-64 flex flex-col min-h-screen w-full min-w-0 overflow-hidden">
         {/* Top Header Bar */}
         <header className="sticky top-0 z-20 bg-white/95 backdrop-blur-md border-b border-slate-100 h-20 flex items-center justify-between px-6 md:px-8">
           <div className="flex items-center gap-4">
@@ -196,17 +196,17 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             {/* Switch to Customer Mode */}
             <Link
               href="/dashboard"
-              className="flex items-center gap-1.5 bg-slate-50 text-slate-700 hover:bg-slate-105 hover:text-[#031636] font-bold text-xs px-4 py-2.5 rounded-xl border border-slate-200 transition"
+              className="flex items-center gap-1.5 bg-slate-50 text-slate-700 hover:bg-slate-105 hover:text-[#031636] font-bold text-xs px-3 py-2.5 sm:px-4 rounded-xl border border-slate-200 transition"
             >
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
-              Mode Pelanggan
+              <span className="hidden sm:inline">Mode Pelanggan</span>
             </Link>
 
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-250">
+            <span className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-250">
               <span className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-              Admin Mode
+              <span className="hidden sm:inline">Admin Mode</span>
             </span>
           </div>
         </header>
@@ -282,7 +282,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         )}
 
         {/* Child Page Wrapper */}
-        <main className="flex-1 p-6 md:p-8">
+        <main className="flex-1 p-6 md:p-8 w-full min-w-0 overflow-hidden">
           {children}
         </main>
       </div>

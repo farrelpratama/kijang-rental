@@ -66,7 +66,7 @@ export default function DocumentVerificationCard({
         </div>
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center gap-3 mt-4 md:mt-0">
         <button
           onClick={() => onPreview(doc.fileUrl)}
           className="px-3.5 py-2 text-xs font-bold text-[#031636] bg-slate-50 border border-slate-150 hover:bg-slate-100 rounded-xl transition"
