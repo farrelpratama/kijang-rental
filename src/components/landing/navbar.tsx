@@ -211,6 +211,8 @@ export default function Navbar() {
 
           <button
             onClick={() => setIsOpen(true)}
+            aria-label="Buka menu"
+            aria-expanded={isOpen}
             className={`lg:hidden ${
               isSolid
                 ? "text-[#031636]"
@@ -256,11 +258,12 @@ export default function Navbar() {
 
           <button
             onClick={() => setIsOpen(false)}
+            aria-label="Tutup menu"
             className="text-slate-500 hover:text-[#031636] transition font-bold"
           >
             ✕
           </button>
-        </div>``;;;;;;
+        </div>
 
         <nav className="flex flex-1 flex-col gap-6 p-8">
           {navigation.map((item) => (

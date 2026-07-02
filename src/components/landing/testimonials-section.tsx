@@ -7,7 +7,7 @@ const testimonials = [
   {
     id: 1,
     name: "Andi Saputra",
-    role: "Business Traveler",
+    role: "Pebisnis",
     image:
       "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop",
     review:
@@ -17,7 +17,7 @@ const testimonials = [
   {
     id: 2,
     name: "Nabila Putri",
-    role: "Family Vacation",
+    role: "Liburan Keluarga",
     image:
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop",
     review:
@@ -27,7 +27,7 @@ const testimonials = [
   {
     id: 3,
     name: "Michael Jonathan",
-    role: "Airport Transfer",
+    role: "Antar Jemput Bandara",
     image:
       "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&auto=format&fit=crop",
     review:
@@ -60,13 +60,13 @@ export default function TestimonialsSection() {
           className="mx-auto mb-16 max-w-3xl text-center"
         >
           <span className="rounded-full bg-[#FEA619]/20 px-4 py-2 text-sm font-semibold text-[#FEA619]">
-            Testimonials
+            Testimoni Pelanggan
           </span>
 
           <h2 className="mt-6 text-4xl font-black text-[#031636] md:text-5xl">
-            Trusted By Thousands
+            Dipercaya Oleh Ribuan
             <br />
-            Of Happy Customers
+            Pelanggan Setia Kami
           </h2>
 
           <p className="mt-5 text-lg leading-8 text-slate-600">
@@ -100,7 +100,7 @@ export default function TestimonialsSection() {
                 whileHover={{
                   y: -10,
                 }}
-                className="rounded-[30px] border border-slate-200 bg-white p-8 shadow-sm transition hover:shadow-2xl"
+                className="rounded-xl bg-white p-8 shadow-sm transition hover:shadow-2xl"
               >
                 {/* Quote */}
 
@@ -173,12 +173,12 @@ export default function TestimonialsSection() {
           viewport={{
             once: true,
           }}
-          className="mt-20 rounded-[32px] bg-[#031636] px-10 py-12"
+          className="mt-20 rounded-xl bg-[#031636] px-10 py-12"
         >
           <div className="flex flex-col items-center justify-between gap-10 lg:flex-row">
             <div>
               <p className="text-slate-300">
-                Overall Rating
+                Rating Keseluruhan
               </p>
 
               <div className="mt-2 flex items-end gap-2">
@@ -192,7 +192,7 @@ export default function TestimonialsSection() {
               </div>
 
               <p className="mt-2 text-slate-300">
-                Based on 2.000+ verified reviews.
+                Berdasarkan 2.000+ ulasan terverifikasi.
               </p>
             </div>
 
@@ -203,7 +203,7 @@ export default function TestimonialsSection() {
                 </h3>
 
                 <p className="mt-2 text-slate-300">
-                  Customers
+                  Pelanggan
                 </p>
               </div>
 
@@ -213,7 +213,7 @@ export default function TestimonialsSection() {
                 </h3>
 
                 <p className="mt-2 text-slate-300">
-                  Satisfaction
+                  Tingkat Kepuasan
                 </p>
               </div>
 
@@ -223,7 +223,7 @@ export default function TestimonialsSection() {
                 </h3>
 
                 <p className="mt-2 text-slate-300">
-                  Support
+                  Layanan Bantuan
                 </p>
               </div>
             </div>

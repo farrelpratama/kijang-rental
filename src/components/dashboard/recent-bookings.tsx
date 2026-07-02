@@ -49,10 +49,10 @@ export default function RecentBookings({
       {bookings.map((booking) => (
         <div
           key={booking.id}
-          className="rounded-3xl border border-slate-150 bg-white p-4 flex gap-4 items-center shadow-sm hover:shadow-md transition duration-200"
+          className="rounded-xl bg-white p-4 flex gap-4 items-center shadow-sm hover:shadow-md transition duration-200"
         >
           {/* Thumbnail */}
-          <div className="relative h-20 w-32 overflow-hidden rounded-2xl bg-slate-100 shrink-0">
+          <div className="relative h-20 w-32 overflow-hidden rounded-lg bg-slate-100 shrink-0">
             <Image
               src={booking.thumbnail}
               alt={booking.carName}

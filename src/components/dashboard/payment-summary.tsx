@@ -18,7 +18,7 @@ export default function PaymentSummary({
   formatIDR,
 }: PaymentSummaryProps) {
   return (
-    <div className="rounded-[32px] border border-slate-150 bg-white p-6 shadow-sm flex flex-col justify-between space-y-6">
+    <div className="rounded-xl bg-white p-6 shadow-sm flex flex-col justify-between space-y-6">
       {nextDuePayment ? (
         <>
           <div>
@@ -45,7 +45,7 @@ export default function PaymentSummary({
           <div className="space-y-4">
             <Link
               href="/dashboard/payment"
-              className="block w-full py-4 text-center bg-[#031636] hover:bg-[#05204f] text-white font-bold rounded-2xl transition shadow-md"
+              className="block w-full py-4 text-center bg-[#031636] hover:bg-[#05204f] text-white font-bold rounded-lg transition shadow-md"
             >
               Bayar Sekarang
             </Link>
@@ -67,7 +67,7 @@ export default function PaymentSummary({
           </p>
           <Link
             href="/cars"
-            className="w-full py-3 text-center bg-slate-100 hover:bg-slate-200 text-[#031636] font-bold text-xs rounded-xl transition"
+            className="w-full py-3 text-center bg-slate-100 hover:bg-slate-200 text-[#031636] font-bold text-xs rounded-lg transition"
           >
             Sewa Mobil Lagi
           </Link>

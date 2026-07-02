@@ -429,7 +429,7 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
             </div>
 
             {/* Specifications Grid */}
-            <div className="grid grid-cols-2 gap-4 rounded-3xl border border-slate-150 bg-white p-6 shadow-sm sm:grid-cols-4">
+            <div className="grid grid-cols-2 gap-4 rounded-xl bg-white p-6 shadow-sm sm:grid-cols-4">
               <div className="flex flex-col items-center text-center">
                 <span className="mb-2 flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-[#031636]">
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -507,7 +507,7 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
 
               {/* Review Item */}
               <div className="space-y-4">
-                <div className="rounded-3xl border border-slate-150 bg-white p-6 shadow-sm">
+                <div className="rounded-xl bg-white p-6 shadow-sm">
                   <div className="mb-4 flex items-center justify-between">
                     <div className="flex items-center gap-4">
                       <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#031636] font-bold text-white">

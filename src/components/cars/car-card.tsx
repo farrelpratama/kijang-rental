@@ -35,7 +35,7 @@ export default function CarCard({ car }: CarCardProps) {
     <motion.article
       whileHover={{ y: -6, scale: 1.01 }}
       transition={{ duration: 0.2 }}
-      className="bg-white rounded-3xl border border-slate-150 overflow-hidden flex flex-col hover:shadow-lg transition-all duration-300 relative group shadow-sm"
+      className="bg-white rounded-xl overflow-hidden flex flex-col hover:shadow-lg transition-all duration-300 relative group shadow-sm"
     >
       {/* Status Badge */}
       <div
@@ -104,14 +104,14 @@ export default function CarCard({ car }: CarCardProps) {
           {available ? (
             <Link
               href={`/cars/${slug}`}
-              className="bg-[#FEA619] hover:bg-[#e89500] text-white font-bold text-xs px-4 py-2.5 rounded-xl transition shadow-sm"
+              className="bg-[#FEA619] hover:bg-[#e89500] text-white font-bold text-xs px-4 py-2.5 rounded-lg transition shadow-sm"
             >
               Booking
             </Link>
           ) : (
             <button
               disabled
-              className="bg-slate-100 text-slate-400 font-bold text-xs px-4 py-2.5 rounded-xl cursor-not-allowed"
+              className="bg-slate-100 text-slate-400 font-bold text-xs px-4 py-2.5 rounded-lg cursor-not-allowed"
             >
               Penuh
             </button>

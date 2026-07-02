@@ -30,14 +30,14 @@ export default function CtaBanner() {
           transition={{
             duration: 0.7,
           }}
-          className="overflow-hidden rounded-[40px] border border-white/10 bg-white/10 backdrop-blur-xl"
+          className="overflow-hidden rounded-xl bg-white/10 backdrop-blur-xl"
         >
           <div className="grid gap-12 p-10 lg:grid-cols-[1.3fr_.7fr] lg:p-16">
             {/* LEFT */}
 
             <div>
               <span className="inline-flex rounded-full bg-[#FEA619]/20 px-4 py-2 text-sm font-semibold text-[#FEA619]">
-                Ready To Drive?
+                Siap Melakukan Perjalanan?
               </span>
 
               <h2 className="mt-6 text-4xl font-black leading-tight text-white md:text-6xl">
@@ -64,14 +64,14 @@ export default function CtaBanner() {
               <div className="mt-10 flex flex-wrap gap-4">
                 <Link
                   href="/cars"
-                  className="rounded-2xl bg-[#FEA619] px-8 py-4 text-lg font-bold text-white transition duration-300 hover:scale-105 hover:bg-[#e39400]"
+                  className="rounded-lg bg-[#FEA619] px-8 py-4 text-lg font-bold text-white transition duration-300 hover:scale-105 hover:bg-[#e39400]"
                 >
                   Booking Sekarang
                 </Link>
 
                 <Link
                   href="/contact"
-                  className="rounded-2xl border border-white/20 bg-white/10 px-8 py-4 text-lg font-semibold text-white backdrop-blur transition hover:bg-white hover:text-[#031636]"
+                  className="rounded-lg border border-white/20 bg-white/10 px-8 py-4 text-lg font-semibold text-white backdrop-blur transition hover:bg-white hover:text-[#031636]"
                 >
                   Hubungi Kami
                 </Link>
@@ -96,7 +96,7 @@ export default function CtaBanner() {
                   </h3>
 
                   <p className="mt-2 text-slate-300">
-                    Customer Support
+                    Layanan Pelanggan
                   </p>
                 </div>
 
@@ -106,7 +106,7 @@ export default function CtaBanner() {
                   </h3>
 
                   <p className="mt-2 text-slate-300">
-                    Happy Customers
+                    Pelanggan Puas
                   </p>
                 </div>
               </div>
@@ -115,7 +115,7 @@ export default function CtaBanner() {
             {/* RIGHT */}
 
             <div className="flex items-center">
-              <div className="w-full rounded-[32px] border border-white/10 bg-white/10 p-8 backdrop-blur-xl">
+              <div className="w-full rounded-xl bg-white/10 p-8 backdrop-blur-xl">
                 <h3 className="text-2xl font-bold text-white">
                   Kenapa Memilih Kami?
                 </h3>
@@ -145,11 +145,11 @@ export default function CtaBanner() {
 
                 {/* TRUST */}
 
-                <div className="mt-10 rounded-2xl bg-white/5 p-6">
+                <div className="mt-10 rounded-lg bg-white/5 p-6">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-slate-400">
-                        Google Rating
+                        Penilaian Google
                       </p>
 
                       <h4 className="mt-2 text-3xl font-black text-white">
@@ -159,7 +159,7 @@ export default function CtaBanner() {
 
                     <div className="text-right">
                       <p className="text-sm text-slate-400">
-                        Verified Reviews
+                        Ulasan Terverifikasi
                       </p>
 
                       <h4 className="mt-2 text-2xl font-bold text-[#FEA619]">

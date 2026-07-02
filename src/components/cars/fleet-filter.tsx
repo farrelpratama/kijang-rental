@@ -4,9 +4,11 @@ interface FleetFilterProps {
   category: string;
   transmission: string;
   seats: string;
+  maxPrice: number;
   onCategoryChange: (value: string) => void;
   onTransmissionChange: (value: string) => void;
   onSeatsChange: (value: string) => void;
+  onMaxPriceChange: (value: number) => void;
   onReset: () => void;
 }
 
@@ -14,13 +16,21 @@ export default function FleetFilter({
   category,
   transmission,
   seats,
+  maxPrice,
   onCategoryChange,
   onTransmissionChange,
   onSeatsChange,
+  onMaxPriceChange,
   onReset,
 }: FleetFilterProps) {
+  const formatPrice = (price: number) => {
+    if (price >= 1000000) {
+      return `Rp ${(price / 1000000).toFixed(1).replace(".0", "")}jt`;
+    }
+    return `Rp ${(price / 1000).toLocaleString("id-ID")}rb`;
+  };
   return (
-    <div className="bg-white rounded-3xl border border-slate-150 p-6 shadow-sm sticky top-24 space-y-6">
+    <div className="bg-white rounded-xl p-6 shadow-sm sticky top-24 space-y-6">
       <div className="flex items-center justify-between pb-4 border-b border-slate-100">
         <h2 className="text-lg font-bold text-[#031636] flex items-center gap-2">
           <svg className="h-5 w-5 text-[#031636]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -114,16 +124,31 @@ export default function FleetFilter({
         </div>
       </div>
 
-      {/* Price range mock */}
+      {/* Price range filter */}
       <div className="space-y-3 pt-2">
-        <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider flex justify-between">
-          <span>Rentang Tarif</span>
-          <span className="text-[#031636] font-bold">Maks: 1.5jt</span>
-        </label>
-        <div className="h-2 bg-slate-100 rounded-full w-full relative">
-          <div className="absolute left-0 top-0 h-full bg-[#031636] rounded-full w-4/5"></div>
-          <div className="absolute w-4 h-4 bg-[#FEA619] rounded-full top-1/2 -translate-y-1/2 -ml-2 left-0 shadow cursor-pointer border-2 border-white"></div>
-          <div className="absolute w-4 h-4 bg-[#FEA619] rounded-full top-1/2 -translate-y-1/2 -ml-2 left-4/5 shadow cursor-pointer border-2 border-white"></div>
+        <div className="flex justify-between items-center">
+          <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider">Rentang Tarif</label>
+          <span className="text-xs font-bold text-[#031636] bg-[#031636]/5 px-2.5 py-1 rounded-full">
+            Maks: {formatPrice(maxPrice)}
+          </span>
+        </div>
+        <div className="pt-2">
+          <input
+            type="range"
+            min="200000"
+            max="2000000"
+            step="50000"
+            value={maxPrice}
+            onChange={(e) => onMaxPriceChange(Number(e.target.value))}
+            className="w-full h-1.5 rounded-lg appearance-none cursor-pointer accent-[#FEA619] focus:outline-none transition-all"
+            style={{
+              background: `linear-gradient(to right, #031636 0%, #031636 ${((maxPrice - 200000) / (2000000 - 200000)) * 100}%, #e2e8f0 ${((maxPrice - 200000) / (2000000 - 200000)) * 100}%, #e2e8f0 100%)`
+            }}
+          />
+          <div className="flex justify-between text-[10px] text-slate-400 font-medium mt-1.5">
+            <span>Rp 200rb</span>
+            <span>Rp 2jt</span>
+          </div>
         </div>
       </div>
     </div>

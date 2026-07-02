@@ -100,7 +100,7 @@ export default function Footer() {
                 <Link
                   key={social.name}
                   href={social.href}
-                  className="rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm transition hover:border-[#FEA619] hover:bg-[#FEA619] hover:text-[#031636]"
+                  className="rounded-lg bg-white/5 px-5 py-3 text-sm transition hover:bg-[#FEA619] hover:text-[#031636]"
                 >
                   {social.name}
                 </Link>
@@ -127,7 +127,7 @@ export default function Footer() {
             }}
           >
             <h3 className="mb-8 text-xl font-bold">
-              Quick Links
+              Tautan Cepat
             </h3>
 
             <ul className="space-y-5">
@@ -163,7 +163,7 @@ export default function Footer() {
             }}
           >
             <h3 className="mb-8 text-xl font-bold">
-              Services
+              Layanan
             </h3>
 
             <ul className="space-y-5">
@@ -197,13 +197,13 @@ export default function Footer() {
             }}
           >
             <h3 className="mb-8 text-xl font-bold">
-              Contact
+              Hubungi Kami
             </h3>
 
             <div className="space-y-6 text-slate-300">
               <div>
                 <h4 className="font-semibold text-white">
-                  Office
+                  Kantor
                 </h4>
 
                 <p className="mt-2 leading-7">
@@ -217,7 +217,7 @@ export default function Footer() {
 
               <div>
                 <h4 className="font-semibold text-white">
-                  Phone
+                  Telepon
                 </h4>
 
                 <p className="mt-2">
@@ -251,21 +251,21 @@ export default function Footer() {
               href="#"
               className="hover:text-[#FEA619]"
             >
-              Privacy Policy
+              Kebijakan Privasi
             </Link>
 
             <Link
               href="#"
               className="hover:text-[#FEA619]"
             >
-              Terms of Service
+              Syarat & Ketentuan
             </Link>
 
             <Link
               href="#"
               className="hover:text-[#FEA619]"
             >
-              Cookie Policy
+              Kebijakan Cookie
             </Link>
           </div>
         </div>

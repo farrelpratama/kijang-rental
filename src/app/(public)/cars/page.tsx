@@ -19,6 +19,8 @@ export default function CarsPage() {
     setSeats,
     sort,
     setSort,
+    maxPrice,
+    setMaxPrice,
   } = useFleet();
 
   const handleResetFilters = () => {
@@ -27,6 +29,7 @@ export default function CarsPage() {
     setTransmission("");
     setSeats("");
     setSort("latest");
+    setMaxPrice(2000000);
   };
 
   return (
@@ -49,9 +52,11 @@ export default function CarsPage() {
             category={category}
             transmission={transmission}
             seats={seats}
+            maxPrice={maxPrice}
             onCategoryChange={setCategory}
             onTransmissionChange={setTransmission}
             onSeatsChange={setSeats}
+            onMaxPriceChange={setMaxPrice}
             onReset={handleResetFilters}
           />
         </aside>

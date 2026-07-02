@@ -1,5 +1,11 @@
+import { Metadata } from "next";
 import Navbar from "@/src/components/landing/navbar";
 import Footer from "@/src/components/landing/footer";
+
+export const metadata: Metadata = {
+  title: "Katalog Armada Mobil Yogyakarta | Kijang Rental",
+  description: "Cari dan temukan mobil rental terbaik untuk perjalanan Anda di Yogyakarta. Bandingkan tarif sewa harian untuk Avanza, Innova, Fortuner, dan mobil listrik EV.",
+};
 
 export default function CarsLayout({
   children,

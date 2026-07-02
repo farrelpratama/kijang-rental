@@ -33,7 +33,7 @@ export default function BookingCard({
   onDownloadInvoice,
 }: BookingCardProps) {
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-slate-150 bg-white p-6 shadow-sm hover:shadow-md transition duration-200 flex flex-col md:flex-row gap-6">
+    <div className="relative overflow-hidden rounded-xl bg-white p-6 shadow-sm hover:shadow-md transition duration-200 flex flex-col md:flex-row gap-6">
       {/* Status Indicator Bar */}
       <div
         className={`absolute left-0 top-0 bottom-0 w-1.5 ${

@@ -86,15 +86,13 @@ export default function FeaturedFleet() {
         >
           <div className="max-w-2xl">
             <span className="rounded-full bg-[#FEA619]/20 px-4 py-2 text-sm font-semibold text-[#FEA619]">
-              Featured Fleet
+              Armada Pilihan
             </span>
 
-            <h2 className="mt-6 text-5xl font-black leading-tight text-[#031636]">
-              Find The Perfect
+            <h2 className="mt-6 text-5xl font-black leading-tight text-[#031636] tracking-tight">
+              Temukan Armada Terbaik
               <br />
-              Vehicle For Every
-              <br />
-              Journey
+              Untuk Setiap Perjalanan
             </h2>
 
             <p className="mt-6 text-lg leading-8 text-slate-600">
@@ -107,9 +105,9 @@ export default function FeaturedFleet() {
 
           <Link
             href="/cars"
-            className="rounded-2xl border border-[#031636] px-7 py-4 font-semibold text-[#031636] transition hover:bg-[#031636] hover:text-white"
+            className="rounded-lg bg-slate-100 px-7 py-4 font-semibold text-[#031636] transition hover:bg-[#031636] hover:text-white"
           >
-            View All Fleet →
+            Lihat Semua Armada →
           </Link>
         </motion.div>
 
@@ -156,12 +154,12 @@ export default function FeaturedFleet() {
           transition={{
             delay: 0.25,
           }}
-          className="mt-24 rounded-[36px] bg-[#031636] px-10 py-14"
+          className="mt-24 rounded-xl bg-[#031636] px-10 py-14"
         >
           <div className="flex flex-col items-center justify-between gap-10 lg:flex-row">
             <div>
               <h3 className="text-4xl font-black text-white">
-                Looking For More Vehicles?
+                Butuh Pilihan Mobil Lainnya?
               </h3>
 
               <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-300">
@@ -176,9 +174,9 @@ export default function FeaturedFleet() {
 
             <Link
               href="/cars"
-              className="rounded-2xl bg-[#FEA619] px-8 py-4 text-lg font-bold text-white transition duration-300 hover:scale-105 hover:bg-[#e69500]"
+              className="rounded-lg bg-[#FEA619] px-8 py-4 text-lg font-bold text-white transition duration-300 hover:scale-105 hover:bg-[#e69500]"
             >
-              Explore Fleet
+              Jelajahi Armada
             </Link>
           </div>
         </motion.div>

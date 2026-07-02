@@ -98,7 +98,7 @@ export default function DocumentVerification({
   };
 
   return (
-    <div className="rounded-3xl border border-slate-150 bg-white p-6 shadow-sm space-y-6">
+    <div className="rounded-xl bg-white p-6 shadow-sm space-y-6">
       <div className="flex justify-between items-center border-b border-slate-100 pb-4">
         <h3 className="text-lg font-bold text-[#031636]">Dokumen Verifikasi</h3>
         <span className="text-xs text-slate-400 font-semibold">Syarat wajib menyewa</span>
@@ -106,7 +106,7 @@ export default function DocumentVerification({
 
       <div className="space-y-6">
         {/* KTP Document */}
-        <div className="border border-slate-105 rounded-2xl p-5 space-y-4">
+        <div className="bg-slate-50/50 rounded-xl p-5 space-y-4">
           <div className="flex justify-between items-start">
             <div>
               <h4 className="font-bold text-[#031636]">Kartu Tanda Penduduk (KTP)</h4>
@@ -142,7 +142,7 @@ export default function DocumentVerification({
                 <span className="mt-1.5 text-[10px] font-bold text-[#031636]">Unggah KTP</span>
               </div>
             ) : (
-              <div className="relative h-28 w-44 overflow-hidden rounded-xl border border-slate-200 shrink-0 bg-slate-100">
+              <div className="relative h-28 w-44 overflow-hidden rounded-lg shrink-0 bg-slate-100">
                 {ktpUrl ? (
                   <Image
                     src={ktpUrl}
@@ -160,7 +160,7 @@ export default function DocumentVerification({
 
             <div className="flex-1 flex flex-col justify-center">
               {ktpStatus === "Not Uploaded" && (
-                <div className="bg-amber-50 border border-amber-200 p-3 rounded-xl mb-2 flex gap-2">
+                <div className="bg-amber-50 p-3 rounded-lg mb-2 flex gap-2">
                   <svg className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                   </svg>
@@ -179,7 +179,7 @@ export default function DocumentVerification({
         </div>
 
         {/* SIM A Document */}
-        <div className="border border-slate-105 rounded-2xl p-5 space-y-4">
+        <div className="bg-slate-50/50 rounded-xl p-5 space-y-4">
           <div className="flex justify-between items-start">
             <div>
               <h4 className="font-bold text-[#031636]">Surat Izin Mengemudi (SIM A)</h4>
@@ -215,7 +215,7 @@ export default function DocumentVerification({
                 <span className="mt-1.5 text-[10px] font-bold text-[#031636]">Unggah SIM A</span>
               </div>
             ) : (
-              <div className="relative h-28 w-44 overflow-hidden rounded-xl border border-slate-200 shrink-0 bg-slate-100">
+              <div className="relative h-28 w-44 overflow-hidden rounded-lg shrink-0 bg-slate-100">
                 {simUrl ? (
                   <Image
                     src={simUrl}
@@ -233,7 +233,7 @@ export default function DocumentVerification({
 
             <div className="flex-1 flex flex-col justify-center">
               {simStatus === "Not Uploaded" && (
-                <div className="bg-amber-50 border border-amber-200 p-3 rounded-xl mb-2 flex gap-2">
+                <div className="bg-amber-50 p-3 rounded-lg mb-2 flex gap-2">
                   <svg className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                   </svg>

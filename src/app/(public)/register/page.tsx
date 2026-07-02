@@ -33,7 +33,7 @@ export default function RegisterPage() {
 
       {/* Right Column: Form Container */}
       <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-[#F8FAFC] lg:bg-white overflow-y-auto">
-        <div className="w-full max-w-[420px] rounded-3xl border border-slate-150 bg-white p-8 my-8 shadow-sm lg:border-none lg:shadow-none space-y-8">
+        <div className="w-full max-w-[420px] rounded-xl bg-white p-8 my-8 shadow-sm lg:border-none lg:shadow-none space-y-8">
           {/* Mobile Logo (Visible only on mobile/tablet) */}
           <div className="text-center space-y-3 lg:hidden">
             <Link href="/" className="text-3xl font-black tracking-tight text-[#031636] block">

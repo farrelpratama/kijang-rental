@@ -25,14 +25,14 @@ export default function TransactionTable({
 }: TransactionTableProps) {
   if (transactions.length === 0) {
     return (
-      <div className="rounded-3xl border border-slate-150 bg-white p-8 text-center text-slate-500">
+      <div className="rounded-xl bg-white p-8 text-center text-slate-500">
         Belum ada riwayat transaksi pembayaran.
       </div>
     );
   }
 
   return (
-    <div className="overflow-hidden rounded-3xl border border-slate-150 bg-white shadow-sm">
+    <div className="overflow-hidden rounded-xl bg-white shadow-sm">
       <div className="overflow-x-auto">
         <table className="w-full border-collapse text-left text-sm text-slate-500">
           <thead className="bg-slate-50 text-xs font-bold uppercase text-[#031636] tracking-wider border-b border-slate-100">

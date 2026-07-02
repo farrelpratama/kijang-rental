@@ -22,7 +22,7 @@ export default function ProfileForm({
   memberSince,
 }: ProfileFormProps) {
   return (
-    <div className="rounded-3xl border border-slate-150 bg-white p-6 shadow-sm space-y-6">
+    <div className="rounded-xl bg-white p-6 shadow-sm space-y-6">
       <div className="flex items-center gap-4 border-b border-slate-100 pb-6">
         <div className="relative h-16 w-16 overflow-hidden rounded-full bg-[#031636] text-white flex items-center justify-center font-bold text-xl">
           {fullName ? fullName.substring(0, 2).toUpperCase() : "US"}

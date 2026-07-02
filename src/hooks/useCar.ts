@@ -13,6 +13,7 @@ export function useFleet() {
   const [transmission, setTransmission] = useState("");
   const [seats, setSeats] = useState("");
   const [sort, setSort] = useState("latest");
+  const [maxPrice, setMaxPrice] = useState(2000000); // Default max price is 2,000,000 IDR
 
   useEffect(() => {
     async function fetchCars() {
@@ -78,6 +79,10 @@ export function useFleet() {
       data = data.filter((car) => car.seats === Number(seats));
     }
 
+    if (maxPrice) {
+      data = data.filter((car) => car.price <= maxPrice);
+    }
+
     switch (sort) {
       case "price-low":
         data.sort((a, b) => a.price - b.price);
@@ -96,7 +101,7 @@ export function useFleet() {
     }
 
     return data;
-  }, [cars, search, category, transmission, seats, sort]);
+  }, [cars, search, category, transmission, seats, sort, maxPrice]);
 
   return {
     filteredCars,
@@ -111,5 +116,7 @@ export function useFleet() {
     setSeats,
     sort,
     setSort,
+    maxPrice,
+    setMaxPrice,
   };
 }

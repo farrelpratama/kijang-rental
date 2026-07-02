@@ -112,7 +112,7 @@ export default function CustomerDetailModal({
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/75 p-4 overflow-y-auto">
-      <div className="relative max-w-4xl w-full bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col my-8">
+      <div className="relative max-w-4xl w-full bg-white rounded-xl overflow-hidden shadow-2xl flex flex-col my-8">
         
         {/* Header */}
         <div className="p-6 bg-slate-50 border-b border-slate-100 flex justify-between items-center">

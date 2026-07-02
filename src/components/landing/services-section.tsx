@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 const services = [
   {
-    title: "Family Vacation",
+    title: "Liburan Keluarga",
     description:
       "Nikmati perjalanan keluarga dengan armada MPV yang luas, nyaman, dan selalu dalam kondisi prima.",
     image:
@@ -13,7 +13,7 @@ const services = [
     className: "md:col-span-2 md:row-span-2",
   },
   {
-    title: "Business Trip",
+    title: "Perjalanan Bisnis",
     description:
       "Perjalanan bisnis menjadi lebih profesional dengan kendaraan premium yang elegan.",
     image:
@@ -21,7 +21,7 @@ const services = [
     className: "",
   },
   {
-    title: "Wedding Car",
+    title: "Mobil Pernikahan",
     description:
       "Hadirkan momen istimewa dengan kendaraan eksklusif untuk hari pernikahanmu.",
     image:
@@ -29,7 +29,7 @@ const services = [
     className: "",
   },
   {
-    title: "Airport Transfer",
+    title: "Antar Jemput Bandara",
     description:
       "Layanan antar jemput Bandara YIA yang tepat waktu dan nyaman.",
     image:
@@ -65,11 +65,11 @@ export default function ServicesSection() {
           className="mx-auto mb-16 max-w-3xl text-center"
         >
           <span className="rounded-full bg-[#FEA619]/20 px-4 py-2 text-sm font-semibold text-[#FEA619]">
-            Our Services
+            Layanan Kami
           </span>
 
           <h2 className="mt-6 text-4xl font-black text-[#031636] md:text-5xl">
-            Tailored For Every Journey
+            Solusi Tepat untuk Setiap Perjalanan
           </h2>
 
           <p className="mt-5 text-lg leading-8 text-slate-600">
@@ -100,7 +100,7 @@ export default function ServicesSection() {
               transition={{
                 delay: index * 0.15,
               }}
-              className={`group relative overflow-hidden rounded-[32px] ${service.className}`}
+              className={`group relative overflow-hidden rounded-xl ${service.className}`}
             >
               <Image
                 src={service.image}
@@ -124,7 +124,7 @@ export default function ServicesSection() {
                   {service.description}
                 </p>
 
-                <button className="mt-6 w-fit rounded-xl bg-[#FEA619] px-6 py-3 font-semibold text-white transition hover:bg-[#e49500]">
+                <button className="mt-6 w-fit rounded-lg bg-[#FEA619] px-6 py-3 font-semibold text-white transition hover:bg-[#e49500]">
                   Pelajari Lebih Lanjut
                 </button>
               </div>
@@ -153,7 +153,7 @@ export default function ServicesSection() {
           transition={{
             delay: 0.3,
           }}
-          className="mt-20 rounded-[32px] bg-[#031636] px-10 py-12 text-center"
+          className="mt-20 rounded-xl bg-[#031636] px-10 py-12 text-center"
         >
           <h3 className="text-3xl font-bold text-white">
             Tidak Menemukan Layanan
@@ -168,7 +168,7 @@ export default function ServicesSection() {
             corporate rental.
           </p>
 
-          <button className="mt-8 rounded-xl bg-[#FEA619] px-8 py-4 text-lg font-semibold text-white transition hover:bg-[#e49500]">
+          <button className="mt-8 rounded-lg bg-[#FEA619] px-8 py-4 text-lg font-semibold text-white transition hover:bg-[#e49500]">
             Hubungi Kami
           </button>
         </motion.div>

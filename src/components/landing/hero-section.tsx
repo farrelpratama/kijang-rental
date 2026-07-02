@@ -30,15 +30,13 @@ export default function HeroSection() {
             }}
           >
             <span className="inline-flex items-center rounded-full bg-[#FEA619]/20 px-5 py-2 text-sm font-semibold text-[#FEA619] backdrop-blur">
-              Premium Car Rental in Yogyakarta
+              Rental Mobil Premium di Yogyakarta
             </span>
 
-            <h1 className="mt-6 text-5xl font-black leading-tight text-white md:text-5xl">
-              Frictionless
+            <h1 className="mt-6 text-5xl font-black leading-tight text-white md:text-5xl tracking-tight">
+              Perjalanan Nyaman,
               <br />
-              Path To
-              <br />
-              Mobility.
+              Tanpa Hambatan.
             </h1>
 
             <p className="mt-8 max-w-xl text-lg leading-8 text-slate-300">

@@ -16,7 +16,7 @@ export default function FleetToolbar({
   count,
 }: FleetToolbarProps) {
   return (
-    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-4 rounded-3xl border border-slate-150 shadow-sm">
+    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-4 rounded-xl shadow-sm">
       {/* Search Bar */}
       <div className="relative w-full sm:w-80">
         <svg
@@ -37,7 +37,7 @@ export default function FleetToolbar({
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder="Cari mobil..."
-          className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-[#031636] focus:outline-none focus:ring-1 focus:ring-[#031636] transition-all text-sm"
+          className="w-full pl-11 pr-4 py-2.5 rounded-lg bg-slate-50 border-0 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#031636] transition-all text-sm"
         />
       </div>
 
@@ -49,7 +49,7 @@ export default function FleetToolbar({
         <select
           value={sort}
           onChange={(e) => onSortChange(e.target.value)}
-          className="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-[#031636] focus:border-[#031636] focus:outline-none focus:ring-1 focus:ring-[#031636] outline-none cursor-pointer hover:border-slate-300 transition"
+          className="bg-slate-50 border-0 rounded-lg px-3 py-2 text-xs font-bold text-[#031636] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#031636] outline-none cursor-pointer transition"
         >
           <option value="latest">Terbaru</option>
           <option value="price-low">Tarif: Terendah</option>
