@@ -14,7 +14,7 @@ interface CustomersTableProps {
 
 export default function CustomersTable({ customers }: CustomersTableProps) {
   return (
-    <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+    <div className="bg-white rounded-xl shadow-sm overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>

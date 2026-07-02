@@ -17,7 +17,7 @@ export async function signUp(
         name,
       },
       emailRedirectTo:
-        `${window.location.origin}/auth/confirm`,
+        `${window.location.origin}/auth/callback`,
     },
   });
 }

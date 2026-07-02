@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function QuickActions() {
   return (
-    <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-between">
+    <div className="bg-white p-6 rounded-xl shadow-sm flex flex-col justify-between">
       <h3 className="text-lg font-bold text-[#031636] mb-4">Navigasi Cepat</h3>
       <div className="space-y-3 flex-1 flex flex-col justify-center">
         <Link 

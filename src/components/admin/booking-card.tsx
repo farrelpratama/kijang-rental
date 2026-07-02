@@ -39,7 +39,7 @@ export default function BookingCard({
 
   return (
     <div 
-      className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm transition hover:shadow-md flex flex-col lg:flex-row lg:items-center justify-between gap-6"
+      className="bg-white p-6 rounded-xl shadow-sm transition hover:shadow-md flex flex-col lg:flex-row lg:items-center justify-between gap-6"
     >
       {/* Main Details */}
       <div className="space-y-3 flex-1">
@@ -127,14 +127,14 @@ export default function BookingCard({
               <button
                 disabled={updatingId === booking.id}
                 onClick={() => onUpdateStatus(booking.id, "cancelled")}
-                className="px-3 py-2 text-xs font-bold text-rose-600 bg-rose-50 border border-rose-100 hover:bg-rose-600 hover:text-white rounded-xl transition"
+                className="px-3 py-2 text-xs font-bold text-rose-600 bg-rose-50 border border-rose-100 hover:bg-rose-600 hover:text-white rounded-lg transition"
               >
                 Tolak
               </button>
               <button
                 disabled={updatingId === booking.id}
                 onClick={() => onUpdateStatus(booking.id, "confirmed")}
-                className="px-3 py-2 text-xs font-bold text-white bg-[#031636] hover:bg-[#05204f] rounded-xl transition shadow"
+                className="px-3 py-2 text-xs font-bold text-white bg-[#031636] hover:bg-[#05204f] rounded-lg transition shadow"
               >
                 Setujui
               </button>
@@ -145,7 +145,7 @@ export default function BookingCard({
             <button
               disabled={updatingId === booking.id}
               onClick={() => onUpdateStatus(booking.id, "ongoing")}
-              className="px-4 py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition shadow flex items-center gap-1.5"
+              className="px-4 py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition shadow flex items-center gap-1.5"
             >
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 11-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586l6.879-6.879A6 6 0 1121 9z" />
@@ -158,7 +158,7 @@ export default function BookingCard({
             <button
               disabled={updatingId === booking.id}
               onClick={() => onUpdateStatus(booking.id, "completed")}
-              className="px-4 py-2 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-xl transition shadow flex items-center gap-1.5"
+              className="px-4 py-2 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg transition shadow flex items-center gap-1.5"
             >
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />

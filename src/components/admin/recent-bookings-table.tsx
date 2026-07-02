@@ -18,7 +18,7 @@ interface RecentBookingsTableProps {
 
 export default function RecentBookingsTable({ bookings, formatIDR }: RecentBookingsTableProps) {
   return (
-    <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm space-y-6">
+    <div className="bg-white p-6 rounded-xl shadow-sm space-y-6">
       <div className="flex justify-between items-center">
         <h3 className="text-lg font-bold text-[#031636]">Pemesanan Terbaru</h3>
         <Link href="/admin/bookings" className="text-xs font-bold text-[#FEA619] hover:underline">

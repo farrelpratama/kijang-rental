@@ -32,7 +32,7 @@ export default function CarCard({
   onToggleAvailability,
 }: CarCardProps) {
   return (
-    <div className="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden flex flex-col justify-between">
+    <div className="bg-white rounded-xl shadow-sm overflow-hidden flex flex-col justify-between">
       <div>
         {/* Image */}
         <div className="aspect-[3/2] relative w-full bg-slate-100 overflow-hidden">
@@ -87,13 +87,13 @@ export default function CarCard({
       <div className="p-5 pt-0 flex gap-2 border-t border-slate-50 mt-auto">
         <button
           onClick={() => onEdit(car)}
-          className="flex-1 py-2 text-center text-xs font-bold text-[#031636] bg-slate-50 border border-slate-100 hover:bg-[#031636] hover:text-white rounded-xl transition"
+          className="flex-1 py-2 text-center text-xs font-bold text-[#031636] bg-slate-50 border border-slate-100 hover:bg-[#031636] hover:text-white rounded-lg transition"
         >
           Edit Unit
         </button>
         <button
           onClick={() => onDelete(car.id)}
-          className="py-2 px-3 text-center text-xs font-bold text-rose-600 bg-rose-50 border border-rose-100 hover:bg-rose-600 hover:text-white rounded-xl transition"
+          className="py-2 px-3 text-center text-xs font-bold text-rose-600 bg-rose-50 border border-rose-100 hover:bg-rose-600 hover:text-white rounded-lg transition"
         >
           Hapus
         </button>
